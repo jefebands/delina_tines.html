@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffd5e5 50%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* AUTH PAGE */
+        .auth-page {
+            text-align: center;
+        }
+
+        .auth-page h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+
+        .auth-page p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .auth-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .auth-button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 15px;
+            opacity: 0;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* MAIN PAGE - NEWSPAPER STYLE */
+        .main-page {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .newspaper-header {
+            text-align: center;
+            border-bottom: 4px double #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .edition {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .newspaper-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        .headline-bar {
+            border-top: 3px double #000;
+            border-bottom: 3px double #000;
+            padding: 15px 0;
+            margin: 20px 0;
+        }
+
+        .headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .main-photo {
+            width: 100%;
+            border: 3px solid #000;
+        }
+
+        .sidebar {
+            border: 2px solid #000;
+            padding: 15px;
+        }
+
+        .sidebar-photo {
+            width: 100%;
+            border: 2px solid #000;
+            margin-bottom: 15px;
+        }
+
+        .profile-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .profile-details {
+            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .profile-details li {
+            margin-bottom: 5px;
+        }
+
+        .article-section {
+            border-top: 2px solid #000;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .article-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            text-align: justify;
+            column-count: 2;
+            column-gap: 30px;
+        }
+
+        .article-text p {
+            margin-bottom: 15px;
+            break-inside: avoid;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .response-button {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .yes-button {
+            background: #28a745;
+            color: white;
+        }
+
+        .no-button {
+            background: #dc3545;
+            color: white;
+        }
+
+        .response-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .newspaper-title {
+                font-size: 2.5rem;
+            }
+
+            .headline {
+                font-size: 1.5rem;
+            }
+
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .article-text {
+                column-count: 1;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            .response-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Authentication Page -->
+        <div class="auth-page" id="authPage">
+            <h1>💕 A Special Message Awaits 💕</h1>
+            <p>Can you confirm this is Delina?</p>
+            <input 
+                type="text" 
+                class="auth-input" 
+                id="dateInput" 
+                placeholder="Enter our anniversary (MM/DD/YY)"
+            >
+            <br>
+            <button class="auth-button" onclick="checkDate()">Unlock Message</button>
+            <p class="error-message" id="errorMessage">Hmm, that doesn't seem right. Try again! 💗</p>
+        </div>
+
+        <!-- Main Newspaper Page -->
+        <div class="main-page" id="mainPage">
+            <div class="newspaper-header">
+                <div class="edition">❀ Love Edition ❀</div>
+                <div class="newspaper-title">BREAKING NEWS</div>
+            </div>
+
+            <div class="headline-bar">
+                <div class="headline">Will You Be My Valentine Delu?</div>
+            </div>
+
+            <div class="content-layout">
+                <div class="main-content">
+                    <img src="IMG_6994.jpeg" alt="Us together" class="main-photo">
+                    
+                    <div class="article-section">
+                        <div class="article-title">What I Love About You:</div>
+                        <div class="article-text">
+                            <p>First things first, you are stunning...obviously. You can be funny sometimes too ;) I really love how selfless you are and how great of a friend you are to everyone around you.</p>
+                            <p>Your energy is so loud in the best way, it makes it hard for me to stay upset when we're together. I love how nurturing and supportive you are, every trait I want in my lifelong partner, you check off without even trying.</p>
+                            <p>You inspire me every day to be a better man and a better lover, and I could never take that for granted. Delina, I love you more than life itself.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="profile-box">
+                        <img src="IMG_7810.jpeg" alt="Delina Angelo" class="sidebar-photo">
+                        <div class="profile-name">Delina Angelo</div>
+                        <ul class="profile-details">
+                            <li>• 5'6...ish</li>
+                            <li>• Ass: Phat</li>
+                            <li>• Leo</li>
+                            <li>• Brown Skin</li>
+                            <li>• Georgia Peach</li>
+                            <li>• Big Eyes</li>
+                            <li>• Curly Hair</li>
+                            <li>• GSU Alumna</li>
+                            <li>• Big Attitude</li>
+                        </ul>
+                    </div>
+                    
+                    <img src="IMG_7429.jpeg" alt="Together" class="sidebar-photo" style="margin-top: 20px;">
+                </div>
+            </div>
+
+            <div class="footer-note">
+                This took me 3 hours btw cuz
+            </div>
+
+            <div class="button-container">
+                <button class="response-button no-button" onclick="handleNo(this)">No</button>
+                <button class="response-button yes-button" onclick="handleYes()">Yes!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkDate() {
+            const input = document.getElementById('dateInput').value.trim();
+            const correctDates = ['12/04/23', '120423', '12-04-23', '12.04.23'];
+            
+            if (correctDates.includes(input)) {
+                document.getElementById('authPage').classList.add('hidden');
+                document.getElementById('mainPage').style.display = 'block';
+            } else {
+                const errorMsg = document.getElementById('errorMessage');
+                errorMsg.classList.add('show');
+                document.getElementById('dateInput').value = '';
+                
+                setTimeout(() => {
+                    errorMsg.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        document.getElementById('dateInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkDate();
+            }
+        });
+
+        function handleYes() {
+            const message = 'yes senay I will be your valentine ❤️';
+            const phoneNumber = '2068224850';
+            window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+        }
+
+        function handleNo(button) {
+            button.style.transform = 'translateX(50px)';
+            
+            setTimeout(() => {
+                button.textContent = 'Yes!';
+                button.className = 'response-button yes-button';
+                button.onclick = handleYes;
+                button.style.transform = '';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
